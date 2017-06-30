@@ -31,7 +31,7 @@ def get_ews(x,windowsize, ac_lag):
 	#Kolmogorov complexity: (note this takes significantly longer to calculate than the other EWS)
 	kc = kolmogorov_complexity.CMovingKC(x,mu, windowsize)
 
-	out = {"mean": mu, "variance": var, 'coefficient_of_variation': cov,
+	out = {"timeseries": x, "mean": mu, "variance": var, 'coefficient_of_variation': cov,
 			"index_of_dispersion": iod, "autocorrelation": ac, "decay_time": ct,
 			"Shannon_entropy": se, "Kolmogorov_complexity": kc}
 
