@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
+from Cython.Build import cythonize
 
 
 with open('README.md') as f:
@@ -18,5 +19,7 @@ setup(
     author_email='tobybrett@gmail.com',
     url='https://github.com/tsbrett/py_earlywarnings',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=find_packages(exclude=('tests', 'docs')),
+    ext_modules = cythonize("ews/kolmogorov_complexity.pyx")
 )
+

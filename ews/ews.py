@@ -1,8 +1,5 @@
-#! /usr/bin/env python
-
-
 import numpy as np
-import movingwindow as ts
+from . import movingwindow as ts
 import pyximport; pyximport.install()
 from . import kolmogorov_complexity
 from . import entropy 
@@ -18,15 +15,19 @@ def get_ews(x,windowsize, ac_lag):
 	#Variance:
 	var =  mu2 - mu**2 #ts.MovingVariance(x, windowsize)
 	#Coefficient of variation:
-	cov = np.sqrt(var)/mu
+	with np.errstate(divide='ignore', invalid='ignore'):
+		cov = np.sqrt(var)/mu
 	#Index of dispersion:
-	iod = var/mu
+	with np.errstate(divide='ignore', invalid='ignore'):
+		iod = var/mu
 	#Autocorrelation:
 	ac = ts.MovingAC(x,windowsize,ac_lag)
 	#Correlation time:
-	ct = -ac_lag/np.log(abs(ac))
+	with np.errstate(divide='ignore', invalid='ignore'):
+		ct = -ac_lag/np.log(abs(ac))
 	#Shannon entropy:
-	se = entropy.MovingEntropy(x, windowsize)
+	with np.errstate(divide='ignore', invalid='ignore'):
+		se = entropy.MovingEntropy(x, windowsize)
 	#Kolmogorov complexity: (note this takes significantly longer to calculate than the other EWS)
 	kc = kolmogorov_complexity.CMovingKC(x,mu, windowsize)
 
