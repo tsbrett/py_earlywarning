@@ -5,7 +5,7 @@ import numpy as np
 
 def MovingWindowAverage(data, window): #This returns the sum of the datapoints, and does not take into account the stepsize.
 	
-	dataavg = np.array([np.sum(data[i-window+1:i+1]) for i in range(0,len(data))])
+	dataavg = np.array([np.sum(data[i-window+1:i+1])/window for i in range(0,len(data))])
 	for i in range(window-1):
 		dataavg[i] = np.nan #float('NaN')
 	#datasum = 0.0
