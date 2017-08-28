@@ -4,33 +4,39 @@ import numpy as np
 
 
 def MovingWindowAverage(data, window): #This returns the sum of the datapoints, and does not take into account the stepsize.
-	datasum = 0.0
-	dataavg = np.zeros(len(data))
-	for i in range(window):
-		if np.isnan(data[i]) == 0:	 datasum = datasum + data[i]
-		dataavg[i] = float('NaN')
-	dataavg[window] = datasum/(window)
-	for i in range(window, len(data)):
-			if np.isnan(data[i])== 0:	 datasum = datasum + data[i] 
-			if np.isnan(data[i-window]) == 0:	datasum = datasum - data[i-window]
-			dataavg[i] = datasum/(window)
+	
+	dataavg = np.array([np.sum(data[i-window+1:i+1]) for i in range(0,len(data))])
+	for i in range(window-1):
+		dataavg[i] = np.nan #float('NaN')
+	#datasum = 0.0
+	#dataavg = np.zeros(len(data))
+	#for i in range(window):
+	#	if np.isnan(data[i]) == 0:	 datasum = datasum + data[i]
+	#	dataavg[i] = float('NaN')
+	#dataavg[window] = datasum/(window)
+	#for i in range(window, len(data)):
+	#		if np.isnan(data[i])== 0:	 datasum = datasum + data[i] 
+	#		if np.isnan(data[i-window]) == 0:	datasum = datasum - data[i-window]
+	#		dataavg[i] = sum(data[/(window)
 	return(dataavg)
 
 
+#Unneeded?
 def MovingVariance(data, window):
 	mu1 = MovingWindowAverage(data, window)
 	mu2 = MovingWindowAverage(data**2, window)
 	return(mu2 - mu1**2) 
 
 def MovingAC(data,window,lag):
-	
+	#needs fixing
 	y = np.concatenate([np.zeros(lag), data[:-lag]])
 	cfunc = MovingWindowAverage(data*y,window)
 	mu1 = MovingWindowAverage(data,window)
-	mu2 = MovingWindowAverage(data**2, window)
-	var = mu2 - mu1**2
+	#mu2 = MovingWindowAverage(data**2, window)
+	var = MovingWindowAverage((data-mu1)**2, window)
+
 	mu_y = np.concatenate([np.zeros(lag), mu1[:-lag]])
-	var_y = np.concatenate([np.zeros(lag), mu2[:-lag]]) - mu_y**2
+	var_y = np.concatenate([np.zeros(lag), var[:-lag]])
 	AC = (cfunc - mu1*mu_y)/np.sqrt(var*var_y)
 	return(AC)
 

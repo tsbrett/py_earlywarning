@@ -6,7 +6,8 @@ from . import entropy
 
 
 def get_ews(x,windowsize, ac_lag):
-	x = np.array(x)
+	x = np.array(x, dtype = 'float')
+
 
 	#Mean:
 	mu = ts.MovingWindowAverage(x, windowsize)
@@ -17,7 +18,8 @@ def get_ews(x,windowsize, ac_lag):
 	#Fourth moment:
 	mu4 = ts.MovingWindowAverage(x**4, windowsize)
 	#Variance:
-	var =  mu2 - mu**2
+	#var =  mu2 - mu**2
+	var =  ts.MovingWindowAverage((x-mu)**2, windowsize)
 	#Autocorrelation:
 	ac = ts.MovingAC(x,windowsize,ac_lag)
 	with np.errstate(divide='ignore', invalid='ignore'):
@@ -30,9 +32,11 @@ def get_ews(x,windowsize, ac_lag):
 		#Shannon entropy:
 		se = entropy.MovingEntropy(x, windowsize)
 		#Skewness:
-		skew = (mu3 -3*mu2*mu + 2*mu**3)/(var**(3/2))
+		skew = ts.MovingWindowAverage((x-mu)**3, windowsize)/(var**(3/2))
+		#skew = (mu3 -3*mu2*mu + 2*mu**3)/(var**(3/2))
 		#Kurtosis
-		kurtosis = (mu4 -4*mu3*mu + 6*mu2*mu**2 -3*mu**4)/(var**2)
+		kurtosis = ts.MovingWindowAverage((x-mu)**4, windowsize)/(var**2)
+		#kurtosis = (mu4 -4*mu3*mu + 6*mu2*mu**2 -3*mu**4)/(var**2)
 	#Kolmogorov complexity: (note this takes significantly longer to calculate than the other EWS)
 	kc = kolmogorov_complexity.CMovingKC(x,mu, windowsize)
 
