@@ -94,3 +94,21 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+\.idea/
+
+tests/\.Rhistory
+
+tests/avg\.csv
+
+tests/ews_comparison\.pdf
+
+tests/ews_data_old_style\.csv
+
+tests/ews_data\.csv
+
+tests/sample_emerging_reports\.csv
+
+tests/spaero_comparison\.R
+
+tests/w100_s20\.csv

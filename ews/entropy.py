@@ -22,8 +22,9 @@ def VanKampenEntropy(b,g =1, e = 10e-5, N = 1000):
 ## Note: need w >> max(x)-min(x) to have reliable statistics, especially for 
 ## calculating the entropy
 def MovingProb(x, w):
+    x = x.astype(int)
     time = len(x)
-    prob = np.zeros((time, max(x)-min(x)+1))
+    prob = np.zeros((time, int(max(x)-min(x))+1))
     y = np.array(x) - min(x)
     for i in range(0,(w+1)):
         prob[w,y[i]] = prob[w,y[i]] + 1./w

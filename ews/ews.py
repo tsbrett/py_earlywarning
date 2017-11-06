@@ -53,19 +53,3 @@ def output_csv(data,filename):
 	import pandas 
 	d = pandas.DataFrame(data)
 	d.to_csv(filename)
-
-
-
-
-
-# #Detrending for pej:
-# from scipy import signal
-# y = signal.detrend(x, type='linear', bp = [len(x)/2])
-# m = np.zeros(len(y))
-# KC = kc.CMovingKC(y,m, windowsize)
-
-# KC = kc.CMovingKC_detrend(x, windowsize)
-
-# BinTS = kc.binaryTimeseries(x,mu)
-
-#for i in range(len(R0)): print R0[i], x[i], mu[i], mu2[i], var[i], Cov[i], IoD[i], AC[i], CT[i], KC[i], BinTS[i], SE[i], y[i]  
