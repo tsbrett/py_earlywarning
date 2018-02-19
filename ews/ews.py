@@ -1,6 +1,6 @@
 import numpy as np
 from . import movingwindow as ts
-import pyximport; pyximport.install()
+#import pyximport; pyximport.install()
 from . import kolmogorov_complexity
 from . import entropy
 
