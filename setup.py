@@ -12,7 +12,7 @@ with open('LICENSE') as f:
 
 setup(
     name='ews',
-    version='0.1.0',
+    version='0.2.0',
     description='Early-warning signals for python',
     long_description=readme,
     author='Tobias Brett',
