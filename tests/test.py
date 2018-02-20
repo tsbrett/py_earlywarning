@@ -85,6 +85,8 @@ sigma = 0.1
 x = np.random.normal(mu, sigma, 1000)
 x = nbinom.rvs(10, 0.5, size=1000).astype(float)
 x = np.array([nbinom.rvs(10, 0.9*(1.-0.9*i/1000.)) for i in range(1,1000)], dtype=float)
+x = np.array([np.random.normal( 1*(1.+10*i/1000.), 0.5*i) for i in range(1,1000)], dtype=float)
+
 #x[500] = np.nan
 #x = np.zeros(1000)
 ews_data = pd.DataFrame(ews.get_ews(x, 201, 1))
