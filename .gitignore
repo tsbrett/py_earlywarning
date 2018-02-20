@@ -112,3 +112,5 @@ tests/sample_emerging_reports\.csv
 tests/spaero_comparison\.R
 
 tests/w100_s20\.csv
+
+*.pdf
