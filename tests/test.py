@@ -85,7 +85,7 @@ sigma = 0.1
 x = np.random.normal(mu, sigma, 1000)
 x = nbinom.rvs(10, 0.5, size=1000).astype(float)
 x = np.array([nbinom.rvs(10, 0.9*(1.-0.9*i/1000.)) for i in range(1,1000)], dtype=float)
-x = np.array([np.random.normal( 1*(1.+10*i/1000.), 0.5*i) for i in range(1,1000)], dtype=float)
+x = np.array([np.random.normal( i, np.sqrt(i)) for i in range(1,1000)], dtype=float)
 
 #x[500] = np.nan
 #x = np.zeros(1000)
@@ -102,9 +102,19 @@ for signal in ews_data.columns:
     tau, p_value = kendalltau(np.arange(ts.shape[0]),ts)
     taus[signal] = tau
 
+taus
 
 
+s = np.random.negative_binomial(10, 0.3, size=100000)
+start = time.time()
+n = pd.DataFrame(ews.get_ews(s,100,1, method="new",mv_method="exp", kc=False, se=False))
+end = time.time()
+print("new", end - start)
 
+start = time.time()
+o = pd.DataFrame(ews.get_ews(s,100,1, method="old", kc=False, se=False))
+end = time.time()
+print("old", end - start)
 
 
 
